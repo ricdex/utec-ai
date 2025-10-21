@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "name": "Tesis: Smart Retries Architecture",
+      "status": "in-progress",
+      "priority": "high",
+      "progress": "40%"
+    },
+    {
+      "name": "Azure Fundamentals (AZ-104)",
+      "status": "in-progress",
+      "priority": "high",
+      "progress": "35%"
+    },
+    {
+      "name": "NATS Message Queue SideProject",
+      "status": "in-progress",
+      "priority": "medium",
+      "progress": "25%"
+    }
+  ]
+}

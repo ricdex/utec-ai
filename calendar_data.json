@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "time": "09:00-10:00",
+      "title": "Reunión con equipo AWS",
+      "type": "meeting",
+      "priority": "high"
+    },
+    {
+      "time": "17:00-18:00",
+      "title": "Bloque Gimnasio",
+      "type": "personal",
+      "priority": "medium"
+    }
+  ]
+}

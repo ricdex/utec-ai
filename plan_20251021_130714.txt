@@ -1,0 +1,19 @@
+======================================================================
+PLAN DIARIO GENERADO
+======================================================================
+
+Fecha: Tuesday, 21 de October de 2025
+Objetivo: revisar seguridad en Azure
+
+======================================================================
+
+- **08:00 - 09:00**: Tiempo libre
+- **09:00 - 10:00**: Reunión con equipo AWS
+- **10:00 - 11:00**: Estudiar Azure Load Balancer
+- **11:00 - 12:00**: Ejercicios prácticos
+- **12:00 - 13:00**: Almuerzo
+- **13:00 - 17:00**: Tiempo libre para otros proyectos o tareas
+- **17:00 - 18:00**: Bloque Gimnasio
+- **18:00 - 19:00**: Tiempo libre para finalizar el día
+
+======================================================================
