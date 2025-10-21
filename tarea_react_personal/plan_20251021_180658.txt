@@ -1,0 +1,22 @@
+======================================================================
+PLAN DIARIO GENERADO
+======================================================================
+
+Fecha: Tuesday, 21 de October de 2025
+Objetivo: implementar tests unitarios
+
+======================================================================
+
+El plan diario para implementar tests unitarios es el siguiente:  
+- **08:00 - 09:00**: Preparación y revisión del proyecto.  
+- **09:00 - 10:00**: Reunión con equipo AWS.  
+- **10:00 - 11:30**: Implementar backoff exponencial.  
+- **11:30 - 12:00**: Descanso.  
+- **12:00 - 13:00**: Realizar tests unitarios.  
+- **13:00 - 14:00**: Almuerzo.  
+- **14:00 - 14:30**: Documentar.  
+- **14:30 - 17:00**: Tiempo libre para revisar otros proyectos o tareas pendientes.  
+- **17:00 - 18:00**: Bloque Gimnasio.  
+- **18:00 - 19:00**: Revisión final de los tests y ajustes si es necesario.
+
+======================================================================

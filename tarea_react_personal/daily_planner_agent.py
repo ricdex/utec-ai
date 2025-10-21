@@ -13,10 +13,6 @@ from langchain_core.prompts import PromptTemplate
 
 def get_calendar_events(_input: str = None) -> str:
     """Carga eventos del calendario desde archivo.
-
-    Accepta un parámetro opcional `_input` porque LangChain Tool
-    invoca las funciones pasando un único argumento (la entrada de la herramienta).
-    El parámetro no se usa actualmente, pero permite compatibilidad con la API.
     """
     with open("calendar_data.json") as f:
         data = json.load(f)
@@ -25,9 +21,6 @@ def get_calendar_events(_input: str = None) -> str:
 
 def list_projects(_input: str = None) -> str:
     """Carga proyectos activos desde archivo.
-
-    Accepta un parámetro opcional `_input` por la misma razón que
-    `get_calendar_events` (compatibilidad con LangChain Tool calls).
     """
     with open("projects_data.json") as f:
         data = json.load(f)
@@ -103,7 +96,7 @@ Tarea: {input}
 
     # OpenAI API - Volver a gpt-4o-mini que entiende mejor ReAct
     llm = ChatOpenAI(
-        openai_api_key="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",
+        openai_api_key=os.getenv("OPENAI_API_KEY"),
         model="gpt-4o-mini",
         temperature=0.2,
         max_tokens=1500
