@@ -41,12 +41,14 @@ Formato de respuesta:
   {{"type": "descanso", "count": 1}}
 ]}}
 
-Tipos válidos: clases, ejercicio, trabajo, descanso, comida, estudio, personal, cine, lectura.
-IMPORTANTE:
-- "cine", "película", "película" → type: "cine"
+Tipos válidos: clases, ejercicio, trabajo, descanso, comida, estudio, personal, cine, lectura, pasear.
+MAPEO IMPORTANTE:
+- "cine", "película" → type: "cine"
 - "leer", "lectura" → type: "lectura"
-- "pausa", "relax", "relajarse" → type: "descanso"
-- "estudiar", "tarea" → type: "estudio"
+- "pasear", "paseo", "caminar", "caminata", "salida", "salir" → type: "pasear"
+- "pausa", "relax", "relajarse", "descansar" → type: "descanso"
+- "estudiar", "tarea", "examen" → type: "estudio"
+- "gimnasio", "gym", "ejercicio", "entrenar" → type: "ejercicio"
 
 Responde SOLO el JSON:"""
 
@@ -87,6 +89,7 @@ def plan_daily_schedule(state: DayPlanState) -> DayPlanState:
         "cine": ("17:30-19:00", "Cine"),
         "lectura": ("20:00-22:00", "Lectura"),
         "personal": ("17:30-19:00", "Personal"),
+        "pasear": ("17:30-19:00", "Pasear con familia"),
     }
 
     for time, act, atype in schedule:
@@ -102,7 +105,8 @@ def plan_daily_schedule(state: DayPlanState) -> DayPlanState:
     plan += "\n" + "=" * 50 + "\n💡 RECOMENDACIONES:\n" + "-" * 50 + "\n"
     rec = {"clases": "Descarga diapositivas", "ejercicio": "Mantente hidratado",
            "estudio": "Estudia 50 min + descanso", "trabajo": "Pausas cada 90 min",
-           "comida": "Comidas nutritivas", "descanso": "7-8 horas sueño"}
+           "comida": "Comidas nutritivas", "descanso": "7-8 horas sueño",
+           "pasear": "Disfruta tiempo en familia", "lectura": "Buena concentración"}
 
     added = set()
     for a in state["extracted_activities"]:
@@ -121,7 +125,7 @@ def validate_rest_periods(state: DayPlanState) -> DayPlanState:
 
     # Actividades intensivas que requieren descanso obligatorio
     intensive = {"clases", "ejercicio", "trabajo"}
-    relaxed = {"cine", "lectura", "personal", "descanso", "estudio"}
+    relaxed = {"cine", "lectura", "personal", "descanso", "estudio", "pasear"}
     has_intensive = any(a in acts for a in intensive)
     has_break = any(a in acts for a in {"descanso", "comida"})
     has_only_relaxed = all(a in relaxed for a in acts)
@@ -151,13 +155,21 @@ Respuesta:"""
     except:
         response = "APROBADO"
 
+    # Verificar si el horario incluye descansos (Pausa, Relax, Cena)
+    plan_lower = state["daily_plan"].lower()
+    has_scheduled_breaks = any(break_word in plan_lower for break_word in ["pausa", "relax", "cena", "almuerzo", "desayuno"])
+
     # Lógica mejorada: considera el contexto
     if has_only_relaxed:
         # Si solo hay actividades relajadas, aprueba automáticamente
         msg = "✅ PLAN APROBADO - Día relajado y equilibrado"
         is_valid = True
-    elif has_intensive and not has_break:
-        # Rechaza SOLO si hay actividades intensivas sin descanso
+    elif has_intensive and (has_break or has_scheduled_breaks):
+        # Si hay actividades intensivas PERO hay descansos (explícitos o en el horario), aprueba
+        msg = "✅ PLAN APROBADO - Plan equilibrado con descansos adecuados"
+        is_valid = True
+    elif has_intensive and not has_break and not has_scheduled_breaks:
+        # Rechaza SOLO si hay actividades intensivas sin descanso ni en plan
         msg = "❌ PLAN RECHAZADO:\nTienes actividades intensivas (clases/ejercicio/trabajo) sin descanso\n\n"
         msg += "SOLUCIONES:\n• Agrega pausas de 30+ min\n• Incluye tiempo para comer\n• Asegura 7-8 hrs sueño"
         is_valid = False
